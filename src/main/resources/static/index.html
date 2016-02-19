@@ -4,21 +4,34 @@
     <meta charset="UTF-8">
     <title>Register user</title>
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./app/app.js"></script>
+    <script src="./app/controllers.js"></script>
 </head>
-<body>
+<body ng-app="usersRegister" ng-controller="UsersRegisterController">
 <div class="container">
     <h3>Register user account</h3>
-    <form role="form">
-        <div class="form-group">
-            <label for="userName">User name</label>
-            <input type="text" class="form-control" id="userName">
+    <form role="form" name="registerUserForm">
+        <div ng-class="{ 'has-error': registerUserForm.userName.$error.pattern
+                        && registerUserForm.userName.$dirty}"
+             class="form-group">
+            <label for="userName" class="control-label">User name</label>
+            <input type="text" name="userName" ng-model="user.name"
+                   ng-pattern="/^[a-zA-Z0-9]{5,}$/" id="userName" class="form-control" required>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password">
+        <div ng-class="{ 'has-error': registerUserForm.password.$error.pattern
+                        && registerUserForm.userName.$dirty}" class="form-group">
+            <label for="password" class="control-label">Password</label>
+            <input type="password" name="password" ng-model="user.password"
+                   ng-pattern="/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])\w{8,}$/" required class="form-control" id="password">
         </div>
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit" title="Register" ng-click="register()"
+                    ng-disabled="registerUserForm.$invalid">Register
+            </button>
+          </span>
     </form>
 </div>
 </body>

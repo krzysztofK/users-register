@@ -1,6 +1,6 @@
 (function (angular) {
     angular.module("usersRegister.controllers", []);
-    var usersRegister = angular.module("usersRegister", ["ngRoute", "usersRegister.controllers"]);
+    var usersRegister = angular.module("usersRegister", ["ngMessages", "ngRoute", "usersRegister.controllers"]);
     usersRegister.config(['$routeProvider',
         function($routeProvider) {
             $routeProvider.

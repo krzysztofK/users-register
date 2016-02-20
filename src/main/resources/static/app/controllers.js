@@ -1,9 +1,7 @@
 (function (angular) {
     var UsersRegisterController = function ($scope, $http, $location, $rootScope) {
         $scope.user = {name: '', password: ''};
-        $scope.userNameNotUnique = false;
         $scope.register = function () {
-            console.log($scope.user);
             $http.post('/register', $scope.user).then(function (response) {
                 $rootScope.user = $scope.user;
                 $location.path("/userRegistered")
@@ -11,7 +9,6 @@
                 if (response.status === 409) {
                     $scope.registerUserForm.userName.$setValidity("notUnique", false);
                     $scope.registerUserForm.$setUntouched();
-                    $scope.userNameNotUnique = true;
                 }
             });
         };

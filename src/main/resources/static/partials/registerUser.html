@@ -1,34 +1,42 @@
 <div class="container">
     <h3>Register user account</h3>
     <form role="form" name="registerUserForm">
-        <div ng-class="{ 'has-error': registerUserForm.userName.$invalid
+        <fieldset ng-disabled="isProcessing">
+            <div ng-class="{ 'has-error': registerUserForm.userName.$invalid
                         && registerUserForm.userName.$dirty}"
-             class="form-group">
-            <label for="userName" class="control-label">User name</label>
-            <input type="text" name="userName" ng-model="user.name" ng-pattern="/^[a-zA-Z0-9]*$/"
-                   ng-minlength="5" ng-change="registerUserForm.userName.$error.notUnique && resetNotUnique()" id="userName" class="form-control" required>
-            <div ng-messages="registerUserForm.userName.$error">
-                <p ng-message="minlength" class="help-block">User name should have at least 5 characters</p>
-                <p ng-message="pattern" class="help-block">User name should be alpha-numeric</p>
-                <p ng-message="required" class="help-block">User name is required</p>
-                <p ng-message="notUnique" class="help-block">User name already used</p>
+                 class="form-group">
+                <label for="userName" class="control-label">User name</label>
+                <input type="text" name="userName" ng-model="user.name" ng-pattern="/^[a-zA-Z0-9]*$/"
+                       ng-minlength="5" ng-change="registerUserForm.userName.$error.notUnique && resetNotUnique()"
+                       id="userName" class="form-control" required>
+                <div ng-messages="registerUserForm.userName.$error">
+                    <p ng-message="minlength" class="help-block">User name should have at least 5 characters</p>
+                    <p ng-message="pattern" class="help-block">User name should be alpha-numeric</p>
+                    <p ng-message="required" class="help-block">User name is required</p>
+                    <p ng-message="notUnique" class="help-block">User name already used</p>
+                </div>
             </div>
-        </div>
-        <div ng-class="{ 'has-error': registerUserForm.password.$invalid
+            <div ng-class="{ 'has-error': registerUserForm.password.$invalid
                         && registerUserForm.password.$dirty}" class="form-group">
-            <label for="password" class="control-label">Password</label>
-            <input type="password" name="password" ng-model="user.password" ng-minlength="8"
-                   ng-pattern="/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/" required class="form-control" id="password">
-            <div ng-messages="registerUserForm.password.$error">
-                <p ng-message="minlength" class="help-block">Password should have at least 8 characters</p>
-                <p ng-message="pattern" class="help-block">Password should contain at least 1 number and 1 uppercase and 1 lowercase character</p>
-                <p ng-message="required" class="help-block">Password is required</p>
+                <label for="password" class="control-label">Password</label>
+                <input type="password" name="password" ng-model="user.password" ng-minlength="8"
+                       ng-pattern="/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/" required class="form-control" id="password">
+                <div ng-messages="registerUserForm.password.$error">
+                    <p ng-message="minlength" class="help-block">Password should have at least 8 characters</p>
+                    <p ng-message="pattern" class="help-block">Password should contain at least 1 number and 1 uppercase
+                        and
+                        1 lowercase character</p>
+                    <p ng-message="required" class="help-block">Password is required</p>
+                </div>
             </div>
-        </div>
+            <div class="alert alert-danger" ng-show="serverError">
+                Some server error occurred
+            </div>
         <span class="input-group-btn">
             <button class="btn btn-primary" type="submit" title="Register" ng-click="register()"
                     ng-disabled="registerUserForm.$invalid">Register
             </button>
           </span>
+        </fieldset>
     </form>
 </div>

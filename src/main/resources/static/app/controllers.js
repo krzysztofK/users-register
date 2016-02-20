@@ -2,13 +2,19 @@
     var UsersRegisterController = function ($scope, $http, $location, $rootScope) {
         $scope.user = {name: '', password: ''};
         $scope.register = function () {
+            $scope.serverError = false;
+            $scope.isProcessing = true;
             $http.post('/register', $scope.user).then(function (response) {
+                $scope.isProcessing = false;
                 $rootScope.user = $scope.user;
                 $location.path("/userRegistered")
             }, function (response) {
+                $scope.isProcessing = false;
                 if (response.status === 409) {
                     $scope.registerUserForm.userName.$setValidity("notUnique", false);
                     $scope.registerUserForm.$setUntouched();
+                } else if (response.status == 500) {
+                    $scope.serverError = true;
                 }
             });
         };
